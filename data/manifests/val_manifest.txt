@@ -1,0 +1,19 @@
+s2/audio/s2_p_pwid1s.wav|s2/front/s2_p_pwid1s.mov|pleswat indiwansun
+s3/audio/s3_p_sbwq1a.wav|s3/front/s3_p_sbwq1a.mov|set bluwidkyuwangen
+s2/audio/s2_l_sban9a.wav|s2/front/s2_l_sban9a.mov|set blu at ennan gen
+s3/audio/s3_p_lrbozs.wav|s3/front/s3_p_lrbozs.mov|lered bazrsun
+s2/audio/s2_p_pwif2n.wav|s2/front/s2_p_pwif2n.mov|pleswat ineftuna
+s3/audio/s3_p_prwg3s.wav|s3/front/s3_p_prwg3s.mov|plesred wid jitrisun
+s2/audio/s2_l_sbiu4p.wav|s2/front/s2_l_sbiu4p.mov|set bluinyufa pliz
+s2/audio/s2_l_bgbp3n.wav|s2/front/s2_l_bgbp3n.mov|bingrin ba pitrina
+s2/audio/s2_p_lrbr7p.wav|s2/front/s2_p_lrbr7p.mov|lered baasevn pliz
+s3/audio/s3_p_brag2n.wav|s3/front/s3_p_brag2n.mov|binred atjituna
+s3/audio/s3_l_lbws5p.wav|s3/front/s3_l_lbws5p.mov|le bluwid esfav pliz
+s2/audio/s2_p_bgwv9n.wav|s2/front/s2_p_bgwv9n.mov|bingrinwidvinan na
+s3/audio/s3_l_bgbo6a.wav|s3/front/s3_l_bgbo6a.mov|bingrin basiksgen
+s3/audio/s3_p_sbbx6s.wav|s3/front/s3_p_sbbx6s.mov|set blu ba ekssikssun
+s3/audio/s3_p_lwwb6s.wav|s3/front/s3_p_lwwb6s.mov|lewatwid bisikssun
+s2/audio/s2_p_bbim3a.wav|s2/front/s2_p_bbim3a.mov|bin blu inemtrigen
+s3/audio/s3_p_bbif8a.wav|s3/front/s3_p_bbif8a.mov|bin bluinef et gen
+s3/audio/s3_p_swii9a.wav|s3/front/s3_p_swii9a.mov|set wat inanangen
+s3/audio/s3_p_bwwb8n.wav|s3/front/s3_p_bwwb8n.mov|binwatwid bietna

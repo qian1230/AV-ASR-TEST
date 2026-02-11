@@ -1,0 +1,19 @@
+s3/audio/s3_l_prwf4n.wav|s3/front/s3_l_prwf4n.mov|plesredwidef fana
+s2/audio/s2_p_brin7a.wav|s2/front/s2_p_brin7a.mov|binred inensevngen
+s2/audio/s2_p_bgwj2n.wav|s2/front/s2_p_bgwj2n.mov|bingrinwid jitu na
+s2/audio/s2_l_lwaazs.wav|s2/front/s2_l_lwaazs.mov|lewatatezrsun
+s2/audio/s2_l_brat5p.wav|s2/front/s2_l_brat5p.mov|binredat tifav pliz
+s2/audio/s2_l_brbi2s.wav|s2/front/s2_l_brbi2s.mov|binred baatusun
+s3/audio/s3_l_bgwk1a.wav|s3/front/s3_l_bgwk1a.mov|bingrinwidkewangen
+s3/audio/s3_p_brbh6s.wav|s3/front/s3_p_brbh6s.mov|binred ba etsikssun
+s2/audio/s2_l_lrwh3p.wav|s2/front/s2_l_lrwh3p.mov|leredwid ettri pliz
+s3/audio/s3_l_swip9a.wav|s3/front/s3_l_swip9a.mov|set wat in pinangen
+s3/audio/s3_p_pgiy4a.wav|s3/front/s3_p_pgiy4a.mov|plesgrininwafagen
+s2/audio/s2_l_pbbr4s.wav|s2/front/s2_l_pbbr4s.mov|ples blu ba afasun
+s2/audio/s2_l_pway3a.wav|s2/front/s2_l_pway3a.mov|pleswatatwatrigen
+s2/audio/s2_p_brat5p.wav|s2/front/s2_p_brat5p.mov|binredat tifav pliz
+s2/audio/s2_p_bwio8a.wav|s2/front/s2_p_bwio8a.mov|binwat in et gen
+s2/audio/s2_p_lgwbzp.wav|s2/front/s2_p_lgwbzp.mov|legrinwid bizr pliz
+s2/audio/s2_l_bgwv9n.wav|s2/front/s2_l_bgwv9n.mov|bingrinwidvinanna
+s2/audio/s2_l_pbwlzs.wav|s2/front/s2_l_pbwlzs.mov|ples bluwidelzrsun
+s3/audio/s3_p_lwbe3n.wav|s3/front/s3_p_lwbe3n.mov|lewat baitrina
