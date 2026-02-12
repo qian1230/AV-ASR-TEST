@@ -8,14 +8,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.absolute()
 sys.path.insert(0, str(BASE_DIR))
 
+import logging
+import time
 from configs.cpu_config import load_config
 from data.dataset import AVASRDataset
 from models.av_asr_model import AVASRModel
 from training.trainer import Trainer
-import logging
-import time
-
-
 def setup_logging():
     """配置日志"""
     logging.basicConfig(

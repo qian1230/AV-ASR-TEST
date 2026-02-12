@@ -4,6 +4,10 @@
 
 AV-ASR（Audio-Visual Automatic Speech Recognition）是一个极简架构的视听融合语音识别基础模型项目。本项目通过独立的视频特征编码器与音频特征编码器提取双模态特征，最终经CTC解码实现时序对齐与语音转录，验证视觉特征对音频识别的基础互补作用。
 
+### 参考论文
+
+项目参考了论文 **MLCA-AVSR: MULTI-LAYER CROSS ATTENTION FUSION BASED AUDIO-VISUAL SPEECH RECOGNITION**，采用多尺度交叉注意力机制实现音频和视频特征的有效融合。
+
 ### 核心特性
 
 - **轻量化设计**：总参数量控制在5M以内，远低于100M限制
@@ -35,7 +39,7 @@ AV-ASR（Audio-Visual Automatic Speech Recognition）是一个极简架构的视
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-repo/av-asr.git
+git clone https://github.com/qian1230/av-asr.git
 cd av-asr
 
 # 创建虚拟环境
@@ -252,22 +256,50 @@ class Config:
 ### 整体结构
 
 ```
-输入层
-    ├── 音频: [B, T_audio, 1, 40, T_audio_frames]
-    └── 视频: [B, T_video, 1, 128, 128]
-        ↓
-编码器
-    ├── 音频编码器: 3层CNN + 2层FC → 512维
-    └── 视频编码器: 3层CNN + 2层FC → 512维
-        ↓
-融合层 (512 + 512 = 1024维)
-    └── 自适应特征融合
-        ↓
-CTC头
-    └── 全连接层 → LogSoftmax → [B, T, 31]
-        ↓
-输出
-    └── 解码后的文本
+┌─────────────────┐     ┌─────────────────┐
+│   音频输入       │     │   视频输入       │
+│ (16kHz, 16bit)  │     │ (30fps, 64x64)  │
+└─────────────────┘     └─────────────────┘
+          │                          │
+          ▼                          ▼
+┌─────────────────┐     ┌─────────────────┐
+│  音频预处理     │     │  视频预处理     │
+│  - Mel谱图      │     │  - 灰度化       │
+│  - 归一化       │     │  - 归一化       │
+└─────────────────┘     └─────────────────┘
+          │                          │
+          ▼                          ▼
+┌─────────────────┐     ┌─────────────────┐
+│  音频编码器     │     │  视频编码器     │
+│  - 3层2D卷积    │     │  - 3层2D卷积    │
+│  - BatchNorm    │     │  - BatchNorm    │
+│  - ReLU         │     │  - ReLU         │
+│  - 特征维度256  │     │  - 特征维度256  │
+└─────────────────┘     └─────────────────┘
+          │                          │
+          ▼                          ▼
+┌─────────────────────────────────────────┐
+│              MLCA融合                   │
+│  - 多尺度特征对齐                       │
+│  - 交叉注意力机制                       │
+│  - 融合维度512                         │
+└─────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────┐
+│   CTC Head      │
+│  - LayerNorm    │
+│  - 全连接层     │
+│  - LogSoftmax   │
+│  - 输出维度23   │
+└─────────────────┘
+                          │
+                          ▼
+┌─────────────────┐
+│   CTC Loss      │
+│  - 损失计算     │
+│  - 梯度反向传播 │
+└─────────────────┘
 ```
 
 ### 音频编码器
@@ -275,17 +307,15 @@ CTC头
 ```
 输入: [B, 1, 40, T] (log-mel谱图)
     ↓
-Conv2d(1→32, 3×3, stride=2) + BN + ReLU
+Conv2d(1→32, 3×3, stride=1) + BN + ReLU
     ↓
-Conv2d(32→64, 3×3, stride=2) + BN + ReLU
+Conv2d(32→64, 3×3, stride=1) + BN + ReLU
     ↓
-Conv2d(64→128, 3×3, stride=2) + BN + ReLU
+Conv2d(64→128, 3×3, stride=1) + BN + ReLU
     ↓
-Flatten + FC(128×5×5→512) + ReLU + Dropout
+Permute + Reshape → [B, T, 256]
     ↓
-FC(512→512) + ReLU + Dropout
-    ↓
-输出: [B, T', 512]
+输出: [B, T', 256]
 ```
 
 ### 视频编码器
@@ -299,9 +329,21 @@ Conv2d(32→64, 3×3, stride=2) + BN + ReLU
     ↓
 Conv2d(64→128, 3×3, stride=2) + BN + ReLU
     ↓
-Flatten + FC(128×4×4→512) + ReLU + Dropout
+Permute + Reshape → [B, T, 256]
     ↓
-FC(512→512) + ReLU + Dropout
+输出: [B, T', 256]
+```
+
+### MLCA融合层
+
+```
+输入: 音频特征[B, T_a, 256] + 视频特征[B, T_v, 256]
+    ↓
+多尺度特征对齐
+    ↓
+交叉注意力机制
+    ↓
+全连接层 → 512维
     ↓
 输出: [B, T', 512]
 ```
@@ -312,12 +354,14 @@ FC(512→512) + ReLU + Dropout
 
 ```python
 # 推荐配置
-config.BATCH_SIZE = 16          # 显存不足时可调至8
+config.BATCH_SIZE = 2           # CPU训练推荐配置
 config.LEARNING_RATE = 5e-4      # Adam初始学习率
-config.MAX_EPOCHS = 50          # 最大训练轮数
+config.MAX_EPOCHS = 20          # 最大训练轮数
 config.DROPOUT = 0.2            # 正则化
 config.LABEL_SMOOTHING = 0.1    # 标签平滑
 ```
+
+
 
 ### 监控训练
 
@@ -334,6 +378,12 @@ tensorboard --logdir=outputs/logs
 当验证集WER连续5轮无下降时停止训练：
 - 自动保存最佳模型
 - 自动衰减学习率
+
+### CPU训练注意事项
+
+1. 训练速度较慢，每轮约90秒
+2. 建议使用GPU加速训练
+3. 可适当减小batch_size以降低内存占用
 
 ## 评估指标
 
@@ -353,6 +403,40 @@ wer = CharacterVocab.compute_wer(ref, hyp)
 ```python
 cer = CharacterVocab.compute_cer(ref, hyp)
 ```
+
+### 损失函数
+
+使用CTC损失函数：
+```python
+from training.loss import CTCLoss
+
+criterion = CTCLoss(config)
+loss = criterion(logits, targets, output_lengths, target_lengths)
+```
+
+### 诊断工具
+
+提供多种诊断脚本：
+
+1. **训练诊断**：`diagnose_training.py`
+   - 检查标签编码
+   - 验证特征有效性
+   - 检查长度约束
+
+2. **数据集诊断**：`diagnose_dataset.py`
+   - 验证数据集完整性
+   - 检查样本质量
+   - 确认路径配置
+
+3. **音频诊断**：`diagnose_audio.py`
+   - 检查音频文件
+   - 验证Mel谱图
+   - 检测NaN/Inf值
+
+4. **Loss诊断**：`diagnose_loss.py`
+   - 验证Loss计算
+   - 检查维度匹配
+   - 确认CTC参数
 
 ## 推理性能
 
@@ -396,6 +480,20 @@ outputs = session.run(None, {
 })
 ```
 
+
+
+
+## 贡献指南
+
+欢迎贡献代码！请遵循以下步骤：
+
+1. Fork本项目
+2. 创建功能分支
+3. 提交代码
+4. 发起Pull Request
+
+
+```
 
 
 ## 联系方式

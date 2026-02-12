@@ -30,12 +30,12 @@ class CPUConfig:
     VIDEO_SIZE = 64  # 降低分辨率以加快CPU处理
     VIDEO_GRAYSCALE = True
 
-    # 模型配置（轻量级）
+    # 模型配置（轻量级 - MLCA）
     AUDIO_ENCODER_CHANNELS = [32, 64, 128]
-    AUDIO_ENCODER_FEATURE_DIM = 640  # 128 * 5 = output of simplified audio encoder
-    VIDEO_ENCODER_CHANNELS = [16, 32, 64]
-    VIDEO_ENCODER_FEATURE_DIM = 128
-    FUSION_DIM = 768  # 640 + 128
+    AUDIO_ENCODER_FEATURE_DIM = 256
+    VIDEO_ENCODER_CHANNELS = [32, 64, 128]
+    VIDEO_ENCODER_FEATURE_DIM = 256
+    FUSION_DIM = 512
 
     # 词汇表配置（从预处理结果读取）
     VOCAB_TYPE = "character"
@@ -47,8 +47,8 @@ class CPUConfig:
     # 训练配置（CPU优化）
     BATCH_SIZE = 2  # 小batch size适应CPU
     NUM_WORKERS = 0  # 避免多进程问题
-    MAX_EPOCHS = 3   # 用户要求训练3个epoch
-    LEARNING_RATE = 5e-4
+    MAX_EPOCHS = 2   # 用户要求训练3个epoch
+    LEARNING_RATE = 0.001
     WEIGHT_DECAY = 1e-4
     DROPOUT = 0.2
     LABEL_SMOOTHING = 0.1

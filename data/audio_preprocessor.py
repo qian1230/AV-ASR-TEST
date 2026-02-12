@@ -56,7 +56,9 @@ class AudioPreprocessor(nn.Module):
 
         mel_spec = self.mel_spec_transform(waveform)
 
-        log_mel_spec = torch.log(mel_spec + 1e-9)
+        # 确保mel_spec不为0
+        mel_spec = torch.clamp(mel_spec, min=1e-9)
+        log_mel_spec = torch.log(mel_spec)
 
         return log_mel_spec
 

@@ -2,3 +2,7 @@
 {"epoch": 0, "timestamp": "2026-02-11 16:10:06", "train_loss": 0.0, "train_wer": 1.0, "val_loss": 0.0, "val_wer": 1.0, "learning_rate": 0.0005}
 {"epoch": 1, "timestamp": "2026-02-11 16:11:42", "train_loss": 0.0, "train_wer": 1.0, "val_loss": 0.0, "val_wer": 1.0, "learning_rate": 0.00048800884649231267}
 {"epoch": 2, "timestamp": "2026-02-11 16:13:18", "train_loss": 0.0, "train_wer": 1.0, "val_loss": 0.0, "val_wer": 1.0, "learning_rate": 0.00045320916362186214}
+{"epoch": 0, "timestamp": "2026-02-12 11:09:25", "train_loss": 0.0, "train_wer": 1.0, "val_loss": 0.0, "val_wer": 1.0, "learning_rate": 0.0005}
+{"epoch": 1, "timestamp": "2026-02-12 11:10:52", "train_loss": 0.0, "train_wer": 1.0, "val_loss": 0.0, "val_wer": 1.0, "learning_rate": 0.00048800884649231267}
+{"epoch": 0, "timestamp": "2026-02-12 12:18:24", "train_loss": 2.887046944153936, "train_wer": 1.0, "val_loss": 2.5917264787774337, "val_wer": 1.0, "learning_rate": 0.0005}
+{"epoch": 1, "timestamp": "2026-02-12 12:19:56", "train_loss": 2.612897548236345, "train_wer": 1.0, "val_loss": 2.5166028800763582, "val_wer": 1.0, "learning_rate": 0.00048800884649231267}
