@@ -1,8 +1,12 @@
-# AV-ASR 基础模型
+# AV-ASR  MLCA-AVSR的简易实现
 
 ## 项目概述
 
 AV-ASR（Audio-Visual Automatic Speech Recognition）是一个极简架构的视听融合语音识别基础模型项目。本项目通过独立的视频特征编码器与音频特征编码器提取双模态特征，最终经CTC解码实现时序对齐与语音转录，验证视觉特征对音频识别的基础互补作用。
+
+## 项目框架
+![AV-ASR模型框架图](https://github.com/qian1230/AV-ASR-TEST/blob/main/image.png)
+
 
 ### 参考论文
 
